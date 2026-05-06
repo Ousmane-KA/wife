@@ -1,0 +1,605 @@
+<!DOCTYPE html>
+<html lang="fr">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Joyeux Anniversaire Mon Amour 💖</title>
+<link href="https://fonts.googleapis.com/css2?family=Playfair+Display:ital,wght@0,400;0,700;1,400;1,700&family=Cormorant+Garamond:ital,wght@0,300;0,400;1,300;1,400&family=Great+Vibes&display=swap" rel="stylesheet">
+<style>
+  :root {
+    --rose:     #e8637a;
+    --rose-deep:#c0394f;
+    --gold:     #d4a853;
+    --gold-light:#f0c97a;
+    --cream:    #fdf6ee;
+    --petal:    #fce8ed;
+    --dark:     #1a0a0e;
+    --text:     #3d1a22;
+  }
+
+  *, *::before, *::after { box-sizing: border-box; margin: 0; padding: 0; }
+
+  html { scroll-behavior: smooth; }
+
+  body {
+    background: var(--dark);
+    font-family: 'Cormorant Garamond', serif;
+    color: var(--cream);
+    overflow-x: hidden;
+    cursor: none;
+  }
+
+  /* ── Curseur personnalisé ── */
+  .cursor {
+    position: fixed;
+    width: 20px; height: 20px;
+    border-radius: 50%;
+    background: rgba(232,99,122,0.7);
+    pointer-events: none;
+    z-index: 9999;
+    transform: translate(-50%,-50%);
+    transition: transform 0.1s, width 0.3s, height 0.3s, background 0.3s;
+    mix-blend-mode: screen;
+  }
+  .cursor-trail {
+    position: fixed;
+    width: 8px; height: 8px;
+    border-radius: 50%;
+    background: var(--gold);
+    pointer-events: none;
+    z-index: 9998;
+    transform: translate(-50%,-50%);
+    opacity: 0.5;
+    transition: transform 0.25s ease;
+  }
+
+  /* ── Étoiles fond ── */
+  .stars {
+    position: fixed; inset: 0;
+    pointer-events: none;
+    z-index: 0;
+  }
+  .star {
+    position: absolute;
+    border-radius: 50%;
+    background: white;
+    animation: twinkle var(--d) ease-in-out infinite alternate;
+  }
+  @keyframes twinkle {
+    from { opacity: 0.1; transform: scale(0.8); }
+    to   { opacity: 0.9; transform: scale(1.2); }
+  }
+
+  /* ── Pétales qui tombent ── */
+  .petals-container {
+    position: fixed; inset: 0;
+    pointer-events: none;
+    z-index: 1;
+    overflow: hidden;
+  }
+  .petal {
+    position: absolute;
+    top: -60px;
+    font-size: 1.4rem;
+    animation: fall var(--fall-d) linear infinite;
+    animation-delay: var(--fall-delay);
+    opacity: 0.85;
+  }
+  @keyframes fall {
+    0%   { transform: translateY(0) rotate(0deg) translateX(0); opacity: 0.9; }
+    50%  { transform: translateY(50vh) rotate(180deg) translateX(var(--drift)); opacity: 0.7; }
+    100% { transform: translateY(105vh) rotate(360deg) translateX(0); opacity: 0; }
+  }
+
+  /* ── Wrapper principal ── */
+  main {
+    position: relative;
+    z-index: 10;
+    min-height: 100vh;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    justify-content: center;
+    padding: 2rem 1rem;
+  }
+
+  /* ── Carte ── */
+  .card {
+    position: relative;
+    width: min(680px, 96vw);
+    background: linear-gradient(160deg, #2a0d14 0%, #1a0810 40%, #0f0408 100%);
+    border: 1px solid rgba(212,168,83,0.35);
+    border-radius: 4px;
+    padding: 3.5rem 3rem 3rem;
+    box-shadow:
+      0 0 80px rgba(232,99,122,0.12),
+      0 0 160px rgba(232,99,122,0.06),
+      inset 0 0 60px rgba(212,168,83,0.04);
+    overflow: hidden;
+    opacity: 0;
+    transform: translateY(40px);
+    animation: cardReveal 1.4s cubic-bezier(0.22,1,0.36,1) 0.5s forwards;
+  }
+  @keyframes cardReveal {
+    to { opacity: 1; transform: translateY(0); }
+  }
+
+  /* Cadre décoratif */
+  .card::before {
+    content: '';
+    position: absolute;
+    inset: 10px;
+    border: 1px solid rgba(212,168,83,0.15);
+    border-radius: 2px;
+    pointer-events: none;
+  }
+  .card::after {
+    content: '';
+    position: absolute;
+    top: 0; left: 50%;
+    transform: translateX(-50%);
+    width: 60%;
+    height: 1px;
+    background: linear-gradient(90deg, transparent, var(--gold), transparent);
+  }
+
+  /* Coins dorés */
+  .corner {
+    position: absolute;
+    width: 28px; height: 28px;
+    border-color: var(--gold);
+    border-style: solid;
+    opacity: 0.6;
+  }
+  .corner-tl { top: 18px; left: 18px; border-width: 1px 0 0 1px; }
+  .corner-tr { top: 18px; right: 18px; border-width: 1px 1px 0 0; }
+  .corner-bl { bottom: 18px; left: 18px; border-width: 0 0 1px 1px; }
+  .corner-br { bottom: 18px; right: 18px; border-width: 0 1px 1px 0; }
+
+  /* ── En-tête ── */
+  .card-header {
+    text-align: center;
+    margin-bottom: 2.5rem;
+  }
+
+  .subtitle {
+    font-family: 'Cormorant Garamond', serif;
+    font-size: 0.75rem;
+    letter-spacing: 0.35em;
+    text-transform: uppercase;
+    color: var(--gold);
+    opacity: 0.8;
+    margin-bottom: 1rem;
+    animation: fadeUp 1s ease 1s both;
+  }
+
+  .title {
+    font-family: 'Great Vibes', cursive;
+    font-size: clamp(2.8rem, 8vw, 4.5rem);
+    line-height: 1.1;
+    background: linear-gradient(135deg, var(--gold-light) 0%, var(--gold) 50%, var(--rose) 100%);
+    -webkit-background-clip: text;
+    -webkit-text-fill-color: transparent;
+    background-clip: text;
+    animation: fadeUp 1s ease 1.2s both;
+  }
+
+  .heart-divider {
+    display: flex;
+    align-items: center;
+    gap: 1rem;
+    margin: 1.5rem auto;
+    width: fit-content;
+    animation: fadeUp 1s ease 1.4s both;
+  }
+  .heart-divider::before,
+  .heart-divider::after {
+    content: '';
+    display: block;
+    width: 60px;
+    height: 1px;
+    background: linear-gradient(90deg, transparent, var(--gold));
+  }
+  .heart-divider::after {
+    background: linear-gradient(90deg, var(--gold), transparent);
+  }
+  .heart-icon {
+    font-size: 1.2rem;
+    animation: heartbeat 1.4s ease-in-out infinite;
+  }
+  @keyframes heartbeat {
+    0%,100% { transform: scale(1); }
+    14%     { transform: scale(1.3); }
+    28%     { transform: scale(1); }
+    42%     { transform: scale(1.2); }
+  }
+
+  /* ── Corps de la lettre ── */
+  .letter-body {
+    font-family: 'Cormorant Garamond', serif;
+    font-size: 1.08rem;
+    line-height: 2;
+    color: rgba(253,246,238,0.88);
+    font-weight: 300;
+  }
+
+  .salutation {
+    font-family: 'Playfair Display', serif;
+    font-style: italic;
+    font-size: 1.3rem;
+    color: var(--rose);
+    margin-bottom: 1.4rem;
+    animation: fadeUp 1s ease 1.6s both;
+  }
+
+  .paragraph {
+    margin-bottom: 1.4rem;
+    animation: fadeUp 1s ease var(--delay) both;
+  }
+
+  .highlight {
+    font-family: 'Playfair Display', serif;
+    font-style: italic;
+    color: var(--gold-light);
+  }
+
+  /* ── Poème ── */
+  .poem {
+    margin: 2rem 0;
+    padding: 1.8rem 2rem;
+    border-left: 2px solid rgba(232,99,122,0.4);
+    background: rgba(232,99,122,0.05);
+    position: relative;
+    animation: fadeUp 1s ease 2.4s both;
+  }
+  .poem::before {
+    content: '"';
+    font-family: 'Great Vibes', cursive;
+    font-size: 5rem;
+    color: rgba(232,99,122,0.2);
+    position: absolute;
+    top: -1rem; left: 0.5rem;
+    line-height: 1;
+  }
+  .poem p {
+    font-family: 'Playfair Display', serif;
+    font-style: italic;
+    font-size: 1.05rem;
+    line-height: 1.9;
+    color: rgba(253,246,238,0.9);
+  }
+  .poem p + p { margin-top: 0.6rem; }
+
+  /* ── Signature ── */
+  .signature {
+    text-align: right;
+    margin-top: 2rem;
+    animation: fadeUp 1s ease 2.8s both;
+  }
+  .signature-line {
+    font-family: 'Great Vibes', cursive;
+    font-size: 2.4rem;
+    background: linear-gradient(135deg, var(--gold-light), var(--rose));
+    -webkit-background-clip: text;
+    -webkit-text-fill-color: transparent;
+    background-clip: text;
+  }
+  .signature-sub {
+    font-size: 0.72rem;
+    letter-spacing: 0.25em;
+    text-transform: uppercase;
+    color: rgba(212,168,83,0.5);
+    margin-top: 0.3rem;
+  }
+
+  /* ── Bouton musique ── */
+  .music-btn {
+    position: fixed;
+    bottom: 2rem; right: 2rem;
+    width: 52px; height: 52px;
+    border-radius: 50%;
+    background: linear-gradient(135deg, var(--rose-deep), var(--rose));
+    border: 1px solid rgba(212,168,83,0.4);
+    color: white;
+    font-size: 1.3rem;
+    cursor: none;
+    display: flex; align-items: center; justify-content: center;
+    box-shadow: 0 4px 20px rgba(232,99,122,0.4);
+    transition: transform 0.3s, box-shadow 0.3s;
+    z-index: 100;
+    animation: fadeUp 1s ease 3s both;
+  }
+  .music-btn:hover {
+    transform: scale(1.1);
+    box-shadow: 0 6px 30px rgba(232,99,122,0.6);
+  }
+
+  /* ── Feux d'artifice ── */
+  .fireworks-container {
+    position: fixed; inset: 0;
+    pointer-events: none;
+    z-index: 5;
+  }
+  .spark {
+    position: absolute;
+    border-radius: 50%;
+    pointer-events: none;
+    animation: spark-fly var(--d) ease-out forwards;
+  }
+  @keyframes spark-fly {
+    0%   { transform: translate(0,0) scale(1); opacity: 1; }
+    100% { transform: translate(var(--tx),var(--ty)) scale(0); opacity: 0; }
+  }
+
+  /* ── Animations utilitaires ── */
+  @keyframes fadeUp {
+    from { opacity: 0; transform: translateY(20px); }
+    to   { opacity: 1; transform: translateY(0); }
+  }
+
+  /* ── Compteur de jours ── */
+  .date-badge {
+    display: inline-flex;
+    align-items: center;
+    gap: 0.5rem;
+    padding: 0.5rem 1.2rem;
+    border: 1px solid rgba(212,168,83,0.3);
+    border-radius: 2px;
+    font-size: 0.75rem;
+    letter-spacing: 0.2em;
+    text-transform: uppercase;
+    color: var(--gold);
+    margin-top: 1rem;
+    animation: fadeUp 1s ease 1.8s both;
+  }
+
+  /* ── Responsive ── */
+  @media (max-width: 500px) {
+    .card { padding: 2.5rem 1.6rem 2rem; }
+    .poem { padding: 1.4rem 1.2rem; }
+  }
+</style>
+</head>
+<body>
+
+<!-- Curseur -->
+<div class="cursor" id="cursor"></div>
+<div class="cursor-trail" id="trail"></div>
+
+<!-- Étoiles -->
+<div class="stars" id="stars"></div>
+
+<!-- Pétales -->
+<div class="petals-container" id="petals"></div>
+
+<!-- Feux d'artifice -->
+<div class="fireworks-container" id="fireworks"></div>
+
+<!-- Bouton musique -->
+<button class="music-btn" id="musicBtn" title="Musique" onclick="toggleMusic()">♪</button>
+
+<!-- Audio ambiance (silence si pas de fichier) -->
+<audio id="bgMusic" loop>
+  <source src="https://cdn.pixabay.com/download/audio/2022/03/24/audio_2dde668d05.mp3" type="audio/mp3">
+</audio>
+
+<main>
+  <article class="card">
+    <!-- Coins dorés -->
+    <div class="corner corner-tl"></div>
+    <div class="corner corner-tr"></div>
+    <div class="corner corner-bl"></div>
+    <div class="corner corner-br"></div>
+
+    <!-- En-tête -->
+    <header class="card-header">
+      <p class="subtitle">✦ Pour toi, rien que pour toi ✦</p>
+      <h1 class="title">Joyeux Anniversaire</h1>
+      <div class="heart-divider">
+        <span class="heart-icon">💖</span>
+      </div>
+      <div class="date-badge">
+        <span>✦</span>
+        <span id="dateDisplay"></span>
+        <span>✦</span>
+      </div>
+    </header>
+
+    <!-- Corps -->
+    <div class="letter-body">
+      <p class="salutation">Mon amour, mon soleil, ma vie,</p>
+
+      <p class="paragraph" style="--delay:2s">
+        En ce jour si particulier, le monde entier semble s'être habillé de lumière
+        pour célébrer la plus belle de ses créations — <span class="highlight">toi</span>.
+        Chaque année qui passe n'est pas une page qui se tourne, c'est un nouveau chapitre
+        de notre histoire, plus beau que le précédent.
+      </p>
+
+      <p class="paragraph" style="--delay:2.1s">
+        Tu es la raison pour laquelle je souris le matin, la pensée qui réchauffe
+        mes journées, et le bonheur qui illumine mes nuits. Avec toi, même les instants
+        ordinaires deviennent <span class="highlight">extraordinaires</span>.
+      </p>
+
+      <div class="poem">
+        <p>Dans tes yeux j'ai trouvé ma maison,</p>
+        <p>Dans ton rire, ma plus belle saison.</p>
+        <p>Tu es la rose que le ciel m'a offerte,</p>
+        <p>Mon horizon, ma porte entrouverte.</p>
+        <p>Que chaque bougie que tu souffleras ce soir</p>
+        <p>Soit un vœu exaucé, un nouveau espoir.</p>
+      </div>
+
+      <p class="paragraph" style="--delay:2.5s">
+        Je te souhaite une année remplie de joie pure, de rires partagés,
+        de moments précieux que nous graverons ensemble dans nos mémoires.
+        Tu mérites tout ce que la vie a de plus beau à offrir,
+        parce que <span class="highlight">tu es ma plus belle raison d'être heureux</span>.
+      </p>
+
+      <p class="paragraph" style="--delay:2.6s">
+        Aujourd'hui et tous les jours qui suivront, je serai là —
+        à tes côtés, pour toi, avec tout mon amour, indéfiniment.
+      </p>
+    </div>
+
+    <!-- Signature -->
+    <div class="signature">
+      <div class="signature-line">Avec tout mon amour 💕</div>
+      <div class="signature-sub">Pour toujours &amp; à jamais</div>
+    </div>
+  </article>
+</main>
+
+<script>
+// ── Curseur ──────────────────────────────────────────────────────────────────
+const cursor = document.getElementById('cursor');
+const trail  = document.getElementById('trail');
+let mx = 0, my = 0, tx = 0, ty = 0;
+
+document.addEventListener('mousemove', e => {
+  mx = e.clientX; my = e.clientY;
+  cursor.style.left = mx + 'px';
+  cursor.style.top  = my + 'px';
+  spawnHeartTrail(mx, my);
+});
+
+function animTrail() {
+  tx += (mx - tx) * 0.12;
+  ty += (my - ty) * 0.12;
+  trail.style.left = tx + 'px';
+  trail.style.top  = ty + 'px';
+  requestAnimationFrame(animTrail);
+}
+animTrail();
+
+// Petits cœurs qui suivent la souris
+let lastHeart = 0;
+function spawnHeartTrail(x, y) {
+  const now = Date.now();
+  if (now - lastHeart < 120) return;
+  lastHeart = now;
+  const el = document.createElement('div');
+  el.style.cssText = `
+    position:fixed; left:${x}px; top:${y}px;
+    font-size:${10+Math.random()*10}px;
+    pointer-events:none; z-index:9990;
+    transform:translate(-50%,-50%);
+    animation: heartFloat 1.2s ease-out forwards;
+  `;
+  el.textContent = ['💖','💕','✨','🌸'][Math.floor(Math.random()*4)];
+  document.body.appendChild(el);
+  setTimeout(() => el.remove(), 1300);
+}
+
+// CSS pour heartFloat
+const styleEl = document.createElement('style');
+styleEl.textContent = `
+  @keyframes heartFloat {
+    0%   { opacity:1; transform:translate(-50%,-50%) scale(1); }
+    100% { opacity:0; transform:translate(-50%,-120%) scale(0.5); }
+  }
+`;
+document.head.appendChild(styleEl);
+
+// ── Étoiles ───────────────────────────────────────────────────────────────────
+const starsContainer = document.getElementById('stars');
+for (let i = 0; i < 120; i++) {
+  const s = document.createElement('div');
+  const size = Math.random() * 2.5 + 0.5;
+  s.className = 'star';
+  s.style.cssText = `
+    left:${Math.random()*100}%;
+    top:${Math.random()*100}%;
+    width:${size}px; height:${size}px;
+    --d:${2+Math.random()*4}s;
+    animation-delay:${Math.random()*4}s;
+  `;
+  starsContainer.appendChild(s);
+}
+
+// ── Pétales ───────────────────────────────────────────────────────────────────
+const petalsContainer = document.getElementById('petals');
+const petalEmojis = ['🌸','🌺','🌹','💮','🌷'];
+for (let i = 0; i < 18; i++) {
+  const p = document.createElement('div');
+  p.className = 'petal';
+  const drift = (Math.random()-0.5)*160;
+  p.style.cssText = `
+    left:${Math.random()*100}%;
+    --fall-d:${6+Math.random()*8}s;
+    --fall-delay:${Math.random()*10}s;
+    --drift:${drift}px;
+    font-size:${1+Math.random()*0.8}rem;
+  `;
+  p.textContent = petalEmojis[Math.floor(Math.random()*petalEmojis.length)];
+  petalsContainer.appendChild(p);
+}
+
+// ── Date ─────────────────────────────────────────────────────────────────────
+const months = ['Janvier','Février','Mars','Avril','Mai','Juin','Juillet','Août','Septembre','Octobre','Novembre','Décembre'];
+const now = new Date();
+document.getElementById('dateDisplay').textContent =
+  `${now.getDate()} ${months[now.getMonth()]} ${now.getFullYear()}`;
+
+// ── Feux d'artifice ──────────────────────────────────────────────────────────
+const fireworks = document.getElementById('fireworks');
+const colors = ['#e8637a','#d4a853','#f0c97a','#c0394f','#fff','#ffb3c1','#ffd700'];
+
+function burst(x, y) {
+  const count = 28;
+  for (let i = 0; i < count; i++) {
+    const angle = (i / count) * Math.PI * 2;
+    const dist = 60 + Math.random() * 80;
+    const tx = Math.cos(angle) * dist;
+    const ty = Math.sin(angle) * dist;
+    const size = 3 + Math.random() * 5;
+    const color = colors[Math.floor(Math.random()*colors.length)];
+    const el = document.createElement('div');
+    el.className = 'spark';
+    el.style.cssText = `
+      left:${x}px; top:${y}px;
+      width:${size}px; height:${size}px;
+      background:${color};
+      --tx:${tx}px; --ty:${ty}px;
+      --d:${0.8+Math.random()*0.7}s;
+      box-shadow:0 0 6px ${color};
+    `;
+    fireworks.appendChild(el);
+    setTimeout(() => el.remove(), 1600);
+  }
+}
+
+// Feux d'artifice automatiques
+function randomBurst() {
+  const x = 80 + Math.random() * (window.innerWidth - 160);
+  const y = 60 + Math.random() * (window.innerHeight * 0.6);
+  burst(x, y);
+  setTimeout(randomBurst, 1800 + Math.random() * 2200);
+}
+setTimeout(randomBurst, 2000);
+
+// Clic = feu d'artifice
+document.addEventListener('click', e => burst(e.clientX, e.clientY));
+
+// ── Musique ────────────────────────────────────────────────────────────────────
+let playing = false;
+const music = document.getElementById('bgMusic');
+const btn   = document.getElementById('musicBtn');
+
+function toggleMusic() {
+  if (playing) {
+    music.pause();
+    btn.textContent = '♪';
+    btn.style.background = 'linear-gradient(135deg,#c0394f,#e8637a)';
+  } else {
+    music.play().catch(()=>{});
+    btn.textContent = '♬';
+    btn.style.background = 'linear-gradient(135deg,#d4a853,#e8637a)';
+  }
+  playing = !playing;
+}
+</script>
+</body>
+</html>
