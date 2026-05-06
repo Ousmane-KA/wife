@@ -29,7 +29,6 @@
     cursor: none;
   }
 
-  /* ── Curseur personnalisé ─ */
   .cursor {
     position: fixed;
     width: 20px; height: 20px;
@@ -53,7 +52,6 @@
     transition: transform 0.25s ease;
   }
 
-  /* ── Étoiles fond ── */
   .stars {
     position: fixed; inset: 0;
     pointer-events: none;
@@ -70,7 +68,6 @@
     to   { opacity: 0.9; transform: scale(1.2); }
   }
 
-  /* ── Pétales qui tombent ── */
   .petals-container {
     position: fixed; inset: 0;
     pointer-events: none;
@@ -91,7 +88,6 @@
     100% { transform: translateY(105vh) rotate(360deg) translateX(0); opacity: 0; }
   }
 
-  /* ── Wrapper principal ── */
   main {
     position: relative;
     z-index: 10;
@@ -103,7 +99,6 @@
     padding: 2rem 1rem;
   }
 
-  /* ── Carte ── */
   .card {
     position: relative;
     width: min(680px, 96vw);
@@ -124,7 +119,6 @@
     to { opacity: 1; transform: translateY(0); }
   }
 
-  /* Cadre décoratif */
   .card::before {
     content: '';
     position: absolute;
@@ -143,7 +137,6 @@
     background: linear-gradient(90deg, transparent, var(--gold), transparent);
   }
 
-  /* Coins dorés */
   .corner {
     position: absolute;
     width: 28px; height: 28px;
@@ -156,7 +149,6 @@
   .corner-bl { bottom: 18px; left: 18px; border-width: 0 0 1px 1px; }
   .corner-br { bottom: 18px; right: 18px; border-width: 0 1px 1px 0; }
 
-  /* ── En-tête ── */
   .card-header {
     text-align: center;
     margin-bottom: 2.5rem;
@@ -214,7 +206,6 @@
     42%     { transform: scale(1.2); }
   }
 
-  /* ── Corps de la lettre ── */
   .letter-body {
     font-family: 'Cormorant Garamond', serif;
     font-size: 1.08rem;
@@ -243,7 +234,6 @@
     color: var(--gold-light);
   }
 
-  /* ── Poème ── */
   .poem {
     margin: 2rem 0;
     padding: 1.8rem 2rem;
@@ -270,7 +260,6 @@
   }
   .poem p + p { margin-top: 0.6rem; }
 
-  /* ── Signature ── */
   .signature {
     text-align: right;
     margin-top: 2rem;
@@ -292,7 +281,6 @@
     margin-top: 0.3rem;
   }
 
-  /* ── Bouton musique ── */
   .music-btn {
     position: fixed;
     bottom: 2rem; right: 2rem;
@@ -314,7 +302,6 @@
     box-shadow: 0 6px 30px rgba(232,99,122,0.6);
   }
 
-  /* ── Feux d'artifice ── */
   .fireworks-container {
     position: fixed; inset: 0;
     pointer-events: none;
@@ -331,13 +318,11 @@
     100% { transform: translate(var(--tx),var(--ty)) scale(0); opacity: 0; }
   }
 
-  /* ── Animations utilitaires ── */
   @keyframes fadeUp {
     from { opacity: 0; transform: translateY(20px); }
     to   { opacity: 1; transform: translateY(0); }
   }
 
-  /* ── Compteur de jours ── */
   .date-badge {
     display: inline-flex;
     align-items: center;
@@ -353,7 +338,6 @@
     animation: fadeUp 1s ease 1.8s both;
   }
 
-  /* ── Responsive ── */
   @media (max-width: 500px) {
     .card { padding: 2.5rem 1.6rem 2rem; }
     .poem { padding: 1.4rem 1.2rem; }
@@ -362,36 +346,25 @@
 </head>
 <body>
 
-<!-- Curseur -->
 <div class="cursor" id="cursor"></div>
 <div class="cursor-trail" id="trail"></div>
-
-<!-- Étoiles -->
 <div class="stars" id="stars"></div>
-
-<!-- Pétales -->
 <div class="petals-container" id="petals"></div>
-
-<!-- Feux d'artifice -->
 <div class="fireworks-container" id="fireworks"></div>
 
-<!-- Bouton musique -->
 <button class="music-btn" id="musicBtn" title="Musique" onclick="toggleMusic()">♪</button>
 
-<!-- Audio ambiance (silence si pas de fichier) -->
 <audio id="bgMusic" loop>
   <source src="https://cdn.pixabay.com/download/audio/2022/03/24/audio_2dde668d05.mp3" type="audio/mp3">
 </audio>
 
 <main>
   <article class="card">
-    <!-- Coins dorés -->
     <div class="corner corner-tl"></div>
     <div class="corner corner-tr"></div>
     <div class="corner corner-bl"></div>
     <div class="corner corner-br"></div>
 
-    <!-- En-tête -->
     <header class="card-header">
       <p class="subtitle">✦ Pour toi, rien que pour toi ✦</p>
       <h1 class="title">Joyeux Anniversaire</h1>
@@ -405,7 +378,6 @@
       </div>
     </header>
 
-    <!-- Corps -->
     <div class="letter-body">
       <p class="salutation">Mon amour, mon soleil, ma vie,</p>
 
@@ -444,7 +416,6 @@
       </p>
     </div>
 
-    <!-- Signature -->
     <div class="signature">
       <div class="signature-line">Avec tout mon amour 💕</div>
       <div class="signature-sub">Pour toujours &amp; à jamais</div>
@@ -453,7 +424,6 @@
 </main>
 
 <script>
-// ── Curseur ──────────────────────────────────────────────────────────────────
 const cursor = document.getElementById('cursor');
 const trail  = document.getElementById('trail');
 let mx = 0, my = 0, tx = 0, ty = 0;
@@ -474,7 +444,6 @@ function animTrail() {
 }
 animTrail();
 
-// Petits cœurs qui suivent la souris
 let lastHeart = 0;
 function spawnHeartTrail(x, y) {
   const now = Date.now();
@@ -493,7 +462,6 @@ function spawnHeartTrail(x, y) {
   setTimeout(() => el.remove(), 1300);
 }
 
-// CSS pour heartFloat
 const styleEl = document.createElement('style');
 styleEl.textContent = `
   @keyframes heartFloat {
@@ -503,7 +471,6 @@ styleEl.textContent = `
 `;
 document.head.appendChild(styleEl);
 
-// ── Étoiles ───────────────────────────────────────────────────────────────────
 const starsContainer = document.getElementById('stars');
 for (let i = 0; i < 120; i++) {
   const s = document.createElement('div');
@@ -519,7 +486,6 @@ for (let i = 0; i < 120; i++) {
   starsContainer.appendChild(s);
 }
 
-// ── Pétales ───────────────────────────────────────────────────────────────────
 const petalsContainer = document.getElementById('petals');
 const petalEmojis = ['🌸','🌺','🌹','💮','🌷'];
 for (let i = 0; i < 18; i++) {
@@ -537,12 +503,12 @@ for (let i = 0; i < 18; i++) {
   petalsContainer.appendChild(p);
 }
 
-// ── Date ─────────────────────────────────────────────────────────────────────
+// Date fixée au 8 mai
+const now = new Date(new Date().getFullYear(), 4, 8);
 const months = ['Janvier','Février','Mars','Avril','Mai','Juin','Juillet','Août','Septembre','Octobre','Novembre','Décembre'];
-const now = new Date();
-document.getElementById('dateDisplay').textContent = "8 Mai";
+document.getElementById('dateDisplay').textContent =
+  `${now.getDate()} ${months[now.getMonth()]} ${now.getFullYear()}`;
 
-// ── Feux d'artifice ──────────────────────────────────────────────────────────
 const fireworks = document.getElementById('fireworks');
 const colors = ['#e8637a','#d4a853','#f0c97a','#c0394f','#fff','#ffb3c1','#ffd700'];
 
@@ -570,7 +536,6 @@ function burst(x, y) {
   }
 }
 
-// Feux d'artifice automatiques
 function randomBurst() {
   const x = 80 + Math.random() * (window.innerWidth - 160);
   const y = 60 + Math.random() * (window.innerHeight * 0.6);
@@ -579,10 +544,8 @@ function randomBurst() {
 }
 setTimeout(randomBurst, 2000);
 
-// Clic = feu d'artifice
 document.addEventListener('click', e => burst(e.clientX, e.clientY));
 
-// ── Musique ────────────────────────────────────────────────────────────────────
 let playing = false;
 const music = document.getElementById('bgMusic');
 const btn   = document.getElementById('musicBtn');
